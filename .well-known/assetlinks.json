@@ -1,0 +1,10 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.akiraprt.triagepaw",
+      "sha256_cert_fingerprints": ["C1:2C:51:C8:57:52:D3:B6:9C:2B:05:A9:C7:57:CD:56:33:7F:9B:7E:A7:63:60:C0:C9:D8:14:25:9E:0D:5E:8D"]
+    }
+  }
+]
