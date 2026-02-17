@@ -29,9 +29,6 @@
                             right level of care in minutes.
                         </p>
                         <div class="mt-8 flex flex-wrap gap-4">
-                            <a href="#features" class="rounded-full bg-teal-600 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-teal-200 hover:bg-teal-700">
-                                Get Early Access
-                            </a>
                             <a href="#features" class="rounded-full border border-slate-200 px-6 py-3 text-sm font-semibold text-slate-700 hover:border-slate-300 hover:text-slate-900">
                                 See How It Works
                             </a>
@@ -293,7 +290,7 @@
             autoPlayInterval = setInterval(() => {
                 currentIndex = (currentIndex + 1) % clinicalCases.length;
                 renderCase(currentIndex);
-            }, 4000);
+            }, 6000);
         }
 
         // Stop auto-play
