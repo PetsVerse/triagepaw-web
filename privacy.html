@@ -5,10 +5,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Privacy Policy | TriagePaw</title>
     <style>
-        body { font-family: -apple-system, sans-serif; line-height: 1.6; max-width: 800px; margin: 40px auto; padding: 20px; color: #333; }
-        h1 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        h2 { margin-top: 30px; color: #2c3e50; }
-        .footer { margin-top: 50px; font-size: 0.9em; color: #666; border-top: 1px solid #eee; padding-top: 20px; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            color: #333;
+            box-sizing: border-box;
+        }
+        h1 {
+            color: #008080;
+            border-bottom: 2px solid #008080;
+            padding-bottom: 10px;
+            font-size: clamp(1.5rem, 4vw, 2rem);
+        }
+        h2 {
+            margin-top: 30px;
+            color: #008080;
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
+        }
+        h3 {
+            margin-top: 20px;
+            color: #008080;
+            font-size: clamp(1.05rem, 2.5vw, 1.2rem);
+        }
+        ul { padding-left: 1.25em; }
+        li { margin-bottom: 0.5em; }
+        .footer {
+            margin-top: 50px;
+            font-size: 0.9em;
+            color: #666;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+        @media (max-width: 600px) {
+            body { margin: 20px auto; padding: 16px; }
+            h2 { margin-top: 24px; }
+        }
     </style>
 </head>
 <body>
@@ -22,21 +56,31 @@
     <ul>
         <li><strong>Account Information:</strong> When you sign in via Google or Apple, we collect your email address and name via Firebase Authentication.</li>
         <li><strong>Device Identifiers (Anti-Fraud):</strong> To prevent abuse of our "Welcome Credit" system, we collect a unique hardware identifier (Device ID) from your mobile device. This is used solely to verify if a device has already claimed a free trial.</li>
+        <li><strong>Camera &amp; Photos:</strong> Camera and photo access are used only for pet profiles and symptom analysis (e.g., uploading images to help assess your pet's condition). We do not use these for any other purpose. [Updated: 2026-01-31]</li>
+        <li><strong>Subscription Status:</strong> We track whether you have active credits or an active subscription so we can deliver paid features and manage your account correctly.</li>
         <li><strong>Triage Data:</strong> We process the pet health information you provide to generate AI triage suggestions. This data is stored securely in our Supabase database.</li>
     </ul>
 
-    <h2>3. Third-Party Services</h2>
+    <h2>3. Payments</h2>
+    <p>We use <strong>RevenueCat</strong> and the <strong>Google Play</strong> and <strong>Apple App Store</strong> to handle all subscription and in-app transactions. Payment processing is done entirely through these providers. <strong>We do not store credit card or payment details on our own servers.</strong> Your payment data is subject to the respective store and RevenueCat privacy policies.</p>
+
+    <h2>4. Third-Party Services</h2>
     <p>We use the following secure partners to provide our services:</p>
     <ul>
         <li><strong>Supabase:</strong> For secure database storage and data management.</li>
         <li><strong>Firebase (Google):</strong> For secure user authentication and deep linking.</li>
+        <li><strong>RevenueCat:</strong> For subscription management and entitlement verification.</li>
+        <li><strong>Google Cloud / Apple Cloud:</strong> For AI processing that powers triage and analysis features.</li>
         <li><strong>Resend:</strong> To send critical support and transactional emails.</li>
     </ul>
 
-    <h2>4. Data Retention & Your Rights</h2>
+    <h2>5. Data Retention &amp; Your Rights</h2>
     <p>We retain your data only as long as necessary to provide our services. You have the right to request a copy of your data or its deletion at any time by contacting us.</p>
 
-    <h2>5. Contact Us</h2>
+    <h3>Account Deletion</h3>
+    <p>You can delete your account and all associated data (including pet profiles) directly from <strong>App Settings</strong> within the TriagePaw app. This deletion is <strong>permanent</strong>. We use cascade logic so that when your account is deleted, all linked data (e.g., pet profiles, triage history) is removed from our systems with no residual or "ghost" data left behind.</p>
+
+    <h2>6. Contact Us</h2>
     <p>For any privacy-related questions or data requests, please contact: <br>
     <strong>support@triagepaw.com</strong></p>
 
