@@ -1,16 +1,14 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const RESEND_API_URL = "https://api.resend.com/emails";
+const NOTIFY_TO = "contact@triagepaw.com";
 const FROM_SENDER = "TriagePaw <contact@triagepaw.com>";
-const CONFIRM_BASE_URL = "https://triagepaw.com/deletion-confirm.html";
 
 /** Expected table: account_deletion_requests (id, name, email, reason, confirmation_token, confirmed_at, created_at) */
 const TABLE_NAME = "account_deletion_requests";
 
 interface RequestBody {
-  name?: string;
-  email?: string;
-  reason?: string;
+  token?: string;
 }
 
 const escapeHtml = (s: string): string => {
@@ -82,44 +80,56 @@ Deno.serve(async (req: Request) => {
     return jsonResponse({ message: "Invalid JSON body" }, 400, origin);
   }
 
-  const email = typeof body?.email === "string" ? body.email.trim() : "";
-  if (!email) {
-    return jsonResponse({ message: "Email is required" }, 400, origin);
+  const token = typeof body?.token === "string" ? body.token.trim() : "";
+  if (!token) {
+    return jsonResponse({ message: "Token is required" }, 400, origin);
   }
 
-  const name = typeof body?.name === "string" ? body.name.trim() : null;
-  const reason = typeof body?.reason === "string" ? body.reason.trim() : null;
+  // Look up the token — must exist and not yet be confirmed
+  const { data: row, error: selectError } = await supabaseAdmin
+    .from(TABLE_NAME)
+    .select("id, email, name, reason, confirmed_at")
+    .eq("confirmation_token", token)
+    .maybeSingle();
 
-  const confirmationToken = crypto.randomUUID();
-
-  const row = {
-    name: name ?? null,
-    email,
-    reason: reason ?? null,
-    confirmation_token: confirmationToken,
-    confirmed_at: null,
-  };
-
-  const { error: insertError } = await supabaseAdmin.from(TABLE_NAME).insert(row);
-
-  if (insertError) {
-    console.error("DB insert error:", insertError);
-    return jsonResponse({ message: "Failed to save request." }, 500, origin);
+  if (selectError) {
+    console.error("DB select error:", selectError);
+    return jsonResponse({ message: "Server error looking up token." }, 500, origin);
   }
 
+  if (!row || row.confirmed_at !== null) {
+    return jsonResponse({ message: "Invalid or already used confirmation link" }, 400, origin);
+  }
+
+  // Mark the request as confirmed
+  const confirmedAt = new Date().toISOString();
+  const { error: updateError } = await supabaseAdmin
+    .from(TABLE_NAME)
+    .update({ confirmed_at: confirmedAt })
+    .eq("confirmation_token", token);
+
+  if (updateError) {
+    console.error("DB update error:", updateError);
+    return jsonResponse({ message: "Failed to confirm request." }, 500, origin);
+  }
+
+  // Notify admin
   const apiKey = Deno.env.get("RESEND_API_KEY");
   if (apiKey) {
-    const confirmUrl = `${CONFIRM_BASE_URL}?token=${confirmationToken}`;
+    const { email, name, reason } = row as { email: string; name: string | null; reason: string | null };
     const resendPayload = {
       from: FROM_SENDER,
-      to: [email],
-      subject: "Confirm your TriagePaw account deletion request",
+      to: [NOTIFY_TO],
+      reply_to: email,
+      subject: `[TriagePaw] Confirmed account deletion request from ${email}`,
       html: `
-        <p>Hi${name ? ` ${escapeHtml(name)}` : ""},</p>
-        <p>You requested account deletion for <strong>TriagePaw</strong>. Click the link below to confirm your request:</p>
-        <p><a href="${confirmUrl}">${confirmUrl}</a></p>
-        <p>If you did not request this, you can safely ignore this email — no action will be taken.</p>
-        <p><em>The TriagePaw Team</em></p>
+        <p><strong>A user has confirmed their account deletion request.</strong></p>
+        <p>Email: <a href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a></p>
+        ${name ? `<p>Name: ${escapeHtml(name)}</p>` : ""}
+        ${reason ? `<p>Reason: ${escapeHtml(reason)}</p>` : ""}
+        <p>Confirmed at: ${escapeHtml(confirmedAt)}</p>
+        <p>Please process this account deletion in Supabase.</p>
+        <p><em>Sent via TriagePaw Website. Record updated in ${TABLE_NAME}.</em></p>
       `,
     };
     try {
@@ -140,9 +150,5 @@ Deno.serve(async (req: Request) => {
     }
   }
 
-  return jsonResponse(
-    { success: true, message: "A confirmation email has been sent. Please check your inbox to confirm your deletion request." },
-    200,
-    origin
-  );
+  return jsonResponse({ success: true }, 200, origin);
 });
