@@ -4,7 +4,7 @@
     "target": {
       "namespace": "android_app",
       "package_name": "com.akiraprt.triagepaw",
-      "sha256_cert_fingerprints": ["C1:2C:51:C8:57:52:D3:B6:9C:2B:05:A9:C7:57:CD:56:33:7F:9B:7E:A7:63:60:C0:C9:D8:14:25:9E:0D:5E:8D"]
+      "sha256_cert_fingerprints": ["BB:AF:3B:44:1A:35:0D:5A:B2:E0:9E:0E:E8:F7:0B:A4:C8:5E:72:98:8F:97:3E:24:83:58:C0:7C:0F:EF:C0:2B"]
     }
   }
 ]
