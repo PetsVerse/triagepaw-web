@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Privacy Policy | TriagePaw</title>
     <style>
+        :root {
+            --teal-main: #008080;
+            --teal-light: #f0f8f8;
+            --warning-red: #fff5f5;
+            --warning-border: #ff4d4d;
+        }
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             line-height: 1.6;
@@ -15,23 +21,45 @@
             box-sizing: border-box;
         }
         h1 {
-            color: #008080;
-            border-bottom: 2px solid #008080;
+            color: var(--teal-main);
+            border-bottom: 2px solid var(--teal-main);
             padding-bottom: 10px;
             font-size: clamp(1.5rem, 4vw, 2rem);
         }
         h2 {
             margin-top: 30px;
-            color: #008080;
+            color: var(--teal-main);
             font-size: clamp(1.2rem, 3vw, 1.5rem);
         }
         h3 {
             margin-top: 20px;
-            color: #008080;
+            color: var(--teal-main);
             font-size: clamp(1.05rem, 2.5vw, 1.2rem);
         }
         ul { padding-left: 1.25em; }
         li { margin-bottom: 0.5em; }
+        .disclaimer-box {
+            background-color: var(--warning-red);
+            border-left: 4px solid var(--warning-border);
+            padding: 16px;
+            margin: 20px 0;
+            font-weight: bold;
+            color: #b91c1c;
+        }
+        .info-box {
+            background-color: var(--teal-light);
+            border-left: 4px solid var(--teal-main);
+            padding: 12px 16px;
+            margin: 16px 0;
+            font-size: 0.95em;
+            color: #555;
+        }
+        .partner-section {
+            background-color: #fafafa;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #eee;
+        }
         .footer {
             margin-top: 50px;
             font-size: 0.9em;
@@ -48,48 +76,43 @@
 <body>
     <h1>Privacy Policy for TriagePaw</h1>
     <p>Last Updated: February 2026</p>
-    <p style="background-color: #f0f8f8; border-left: 4px solid #008080; padding: 12px 16px; margin: 16px 0; font-size: 0.95em; color: #555;">
-      This document is provided in English only. In case of any conflict or discrepancy arising from a translation, the English version shall prevail.
-    </p>
+
+    <div class="info-box">
+        This document is provided in English only. In case of any conflict or discrepancy arising from a translation, the English version shall prevail.
+    </div>
+
+    <div class="disclaimer-box">
+        ⚠️ VETERINARY MEDICAL DISCLAIMER: TriagePaw is an educational triage tool for pet owners. It is NOT a medical device and does not provide professional veterinary diagnosis, treatment, or cure. Always consult a licensed veterinarian for medical concerns.
+    </div>
 
     <h2>1. Introduction</h2>
     <p>TriagePaw ("we", "us", or "our") is committed to protecting your privacy. This policy explains how we collect, use, and safeguard your information when you use our AI-powered pet triage application.</p>
 
     <h2>2. Data We Collect</h2>
     <ul>
-        <li><strong>Account Information:</strong> When you sign in via Google or Apple, we collect your email address and name via Firebase Authentication.</li>
-        <li><strong>Device Identifiers (Anti-Fraud):</strong> To prevent abuse of our "Welcome Credit" system, we collect a unique hardware identifier (Device ID) from your mobile device. This is used solely to verify if a device has already claimed a free trial.</li>
-        <li><strong>Camera &amp; Photos:</strong> Camera and photo access are used only for pet profiles and symptom analysis (e.g., uploading images to help assess your pet's condition). We do not use these for any other purpose. [Updated: 2026-01-31]</li>
-        <li><strong>Microphone &amp; Voice-to-Text:</strong> We request microphone access solely to enable voice-to-text dictation for your pet's symptom descriptions and consultation notes. Audio data is processed in real-time to generate text and is not permanently stored on our servers or used for background monitoring. You can opt-out by using the manual text input instead.</li>
-        <li><strong>Subscription Status:</strong> We track whether you have active credits or an active subscription so we can deliver paid features and manage your account correctly.</li>
-        <li><strong>Triage Data:</strong> We process the pet health information you provide to generate AI triage suggestions. This data is stored securely in our Supabase database.</li>
+        <li><strong>Account Information:</strong> We collect your name and email via Google or Apple Authentication to manage your account and security.</li>
+        <li><strong>Pet Health Data:</strong> Symptoms, triage history, and photos you provide are stored securely to provide your consultation history.</li>
+        <li><strong>Device Identifiers (Anti-Fraud):</strong> We collect a unique hardware identifier (Device ID) solely to prevent abuse of our trial credit systems.</li>
+        <li><strong>Camera &amp; Photos:</strong> Accessed only for pet profiles and AI triage analysis. Images are stored securely in our cloud storage.</li>
+        <li><strong>Microphone &amp; Voice:</strong> Audio is processed in real-time for voice-to-text dictation and is <strong>not</strong> permanently stored or recorded.</li>
     </ul>
 
-    <h2>3. Payments</h2>
-    <p>We use <strong>RevenueCat</strong> and the <strong>Google Play</strong> and <strong>Apple App Store</strong> to handle all subscription and in-app transactions. Payment processing is done entirely through these providers. <strong>We do not store credit card or payment details on our own servers.</strong> Your payment data is subject to the respective store and RevenueCat privacy policies.</p>
+    <h2>3. AI Processing &amp; Sub-Processors</h2>
+    <p>We use industry-standard secure partners to provide our services. We do not sell your data to third-party advertisers.</p>
+    <div class="partner-section">
+        <ul>
+            <li><strong>Supabase:</strong> Our primary secure database and storage provider. Data is protected with Row-Level Security (RLS).</li>
+            <li><strong>Anthropic (Claude AI):</strong> We use Anthropic's API for AI-powered triage analysis. <strong>Anthropic does not train its models on TriagePaw data.</strong> Data sent for analysis may be retained for up to 30 days for safety monitoring and then deleted.</li>
+            <li><strong>RevenueCat:</strong> Manages subscription entitlements. We do not store credit card details on our servers.</li>
+            <li><strong>PostHog:</strong> Used for internal analytics to improve app performance and user experience.</li>
+        </ul>
+    </div>
 
-    <h2>4. Third-Party Services</h2>
-    <p>We use the following secure partners to provide our services:</p>
-    <ul>
-        <li><strong>Supabase:</strong> For secure database storage and data management.</li>
-        <li><strong>Firebase (Google):</strong> For secure user authentication and deep linking.</li>
-        <li><strong>RevenueCat:</strong> For subscription management and entitlement verification.</li>
-        <li><strong>Google Cloud / Apple Cloud:</strong> For AI processing that powers triage and analysis features.</li>
-        <li><strong>Resend:</strong> To send critical support and transactional emails.</li>
-        <li><strong>Advertising Identifiers:</strong> We use the Google Advertising ID (AD_ID) for internal analytics and to understand how users interact with our service. This ID is used in a non-identifiable way and is subject to your device's "Ads" privacy settings, where you can reset or delete it at any time.</li>
-    </ul>
+    <h2>4. Data Retention &amp; Your Rights</h2>
+    <p>We retain data only as long as necessary to provide our services. You can delete your account and all associated data (including pet profiles and history) directly from <strong>App Settings</strong>. This triggers a permanent cascade deletion from our systems.</p>
 
-    <h2>5. Data Retention &amp; Your Rights</h2>
-    <p>We retain your data only as long as necessary to provide our services. You have the right to request a copy of your data or its deletion at any time by contacting us.</p>
-
-    <h3>Account Deletion</h3>
-    <p>You can delete your account and all associated data (including pet profiles) directly from <strong>App Settings</strong> within the TriagePaw app. This deletion is <strong>permanent</strong>. We use cascade logic so that when your account is deleted, all linked data (e.g., pet profiles, triage history) is removed from our systems with no residual or "ghost" data left behind.</p>
-
-    <h3>AI Triage Disclaimer</h3>
-    <p>Data processed by Triage Paw is used to generate preliminary health assessments and is not a substitute for professional veterinary advice. We do not provide licensed medical diagnoses or professional veterinary services.</p>
-
-    <h2>6. Contact Us</h2>
-    <p>For any privacy-related questions or data requests, please contact: <br>
+    <h2>5. Contact Us</h2>
+    <p>For any privacy-related questions, please contact: <br>
     <strong>support@triagepaw.com</strong></p>
 
     <div class="footer">
