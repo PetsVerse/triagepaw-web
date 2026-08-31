@@ -355,6 +355,15 @@
         carouselContainer.addEventListener('mouseenter', stopAutoPlay);
         carouselContainer.addEventListener('mouseleave', startAutoPlay);
     </script>
+<script>
+  const isPT = !localStorage.getItem('lang-override') 
+    ? navigator.language.startsWith('pt') 
+    : localStorage.getItem('lang-override') === 'pt';
+  if (isPT) {
+    document.querySelectorAll('a[href="privacy.html"]').forEach(a => a.href = 'privacy-pt.html');
+    document.querySelectorAll('a[href="terms.html"]').forEach(a => a.href = 'terms-pt.html');
+  }
+</script>
 </body>
 </html>
 

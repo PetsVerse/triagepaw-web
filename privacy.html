@@ -369,7 +369,17 @@
 
     <div class="footer">
         &copy; 2026 TriagePaw. All rights reserved.
+        <p style="margin-top:8px;font-size:0.85em;">
+          <a href="privacy.html" onclick="localStorage.setItem('lang-override','en')" style="color:#008080;">EN</a>
+          &nbsp;|&nbsp;
+          <a href="privacy-pt.html" onclick="localStorage.setItem('lang-override','pt')" style="color:#008080;">PT</a>
+        </p>
     </div>
 
+<script>
+  if (!localStorage.getItem('lang-override') && navigator.language.startsWith('pt') && !window.location.pathname.includes('-pt')) {
+    window.location.replace('privacy-pt.html');
+  }
+</script>
 </body>
 </html>
