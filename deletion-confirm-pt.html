@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Confirm Account Deletion | TriagePaw</title>
+    <title>Confirmar Eliminação de Conta | TriagePaw</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     <link rel="apple-touch-icon" href="/favicon.png">
     <!-- Google tag (gtag.js) -->
@@ -103,8 +103,8 @@
                 <img src="assets/triagepaw-icon.png" alt="TriagePaw">
                 <span>TriagePaw</span>
             </div>
-            <h1>Confirm Account Deletion</h1>
-            <p class="subtitle">Verifying your confirmation link…</p>
+            <h1>Confirmar Eliminação de Conta</h1>
+            <p class="subtitle">A verificar o seu link de confirmação…</p>
         </header>
 
         <div class="card">
@@ -112,18 +112,18 @@
                 <i class="fa-solid fa-spinner fa-spin"></i>
             </div>
             <p id="status-text" class="status-text loading" role="alert" aria-live="polite">
-                Please wait while we confirm your request…
+                Por favor aguarde enquanto confirmamos o seu pedido…
             </p>
         </div>
 
         <div class="footer-links">
-            <a href="index.html">Back to home</a>
+            <a href="index-pt.html">Voltar ao início</a>
             <span aria-hidden="true"> · </span>
-            <a href="mailto:contact@triagepaw.com">Contact us</a>
+            <a href="mailto:contact@triagepaw.com">Contacte-nos</a>
             <span aria-hidden="true"> · </span>
-            <strong><a href="deletion-confirm.html" onclick="localStorage.setItem('lang-override','en')" style="color:var(--teal);">EN</a></strong>
+            <a href="deletion-confirm.html" onclick="localStorage.setItem('lang-override','en')" style="color:var(--teal);">EN</a>
             <span aria-hidden="true"> | </span>
-            <a href="deletion-confirm-pt.html" onclick="localStorage.setItem('lang-override','pt')" style="color:var(--teal);">PT</a>
+            <strong><a href="deletion-confirm-pt.html" onclick="localStorage.setItem('lang-override','pt')" style="color:var(--teal);">PT</a></strong>
         </div>
     </div>
 
@@ -136,7 +136,7 @@
             var subtitle = document.querySelector('.subtitle');
 
             function setSuccess(msg) {
-                subtitle.textContent = 'Request confirmed';
+                subtitle.textContent = 'Pedido confirmado';
                 iconEl.className = 'status-icon success';
                 iconEl.innerHTML = '<i class="fa-solid fa-circle-check"></i>';
                 textEl.className = 'status-text success';
@@ -144,7 +144,7 @@
             }
 
             function setError(msg) {
-                subtitle.textContent = 'Something went wrong';
+                subtitle.textContent = 'Algo correu mal';
                 iconEl.className = 'status-icon error';
                 iconEl.innerHTML = '<i class="fa-solid fa-circle-xmark"></i>';
                 textEl.className = 'status-text error';
@@ -155,7 +155,7 @@
             var token = params.get('token');
 
             if (!token) {
-                setError('Invalid or missing confirmation link.');
+                setError('Link de confirmação inválido ou em falta.');
                 return;
             }
 
@@ -171,16 +171,16 @@
                     });
                 })
                 .then(function () {
-                    setSuccess('Your deletion request has been confirmed. We will process it shortly and notify you by email.');
+                    setSuccess('O seu pedido de eliminação foi confirmado. Processaremos brevemente e notificá-lo-emos por e-mail.');
                 })
                 .catch(function () {
-                    setError('This confirmation link is invalid or has already been used.');
+                    setError('Este link de confirmação é inválido ou já foi utilizado.');
                 });
         })();
     </script>
 <script>
-  if (!localStorage.getItem('lang-override') && navigator.language.startsWith('pt')) {
-    window.location.replace('deletion-confirm-pt.html');
+  if (!localStorage.getItem('lang-override') && !navigator.language.startsWith('pt')) {
+    window.location.replace('deletion-confirm.html');
   }
 </script>
 </body>

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Delete Account | TriagePaw</title>
+    <title>Eliminar Conta | TriagePaw</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     <link rel="apple-touch-icon" href="/favicon.png">
     <!-- Google tag (gtag.js) -->
@@ -159,8 +159,8 @@
                 <img src="assets/triagepaw-icon.png" alt="TriagePaw">
                 <span>TriagePaw</span>
             </div>
-            <h1>Delete Account</h1>
-            <p class="subtitle">Request account deletion. We’ll process it and confirm by email.</p>
+            <h1>Eliminar Conta</h1>
+            <p class="subtitle">Pedido de eliminação de conta. Processaremos e confirmaremos por e-mail.</p>
         </header>
 
         <div class="card">
@@ -168,31 +168,31 @@
 
             <form id="deletion-form" novalidate>
                 <div class="form-group">
-                    <label for="email">Email address</label>
+                    <label for="email">Endereço de e-mail</label>
                     <input
                         type="email"
                         id="email"
                         name="email"
-                        placeholder="you@example.com"
+                        placeholder="voce@exemplo.com"
                         required
                         autocomplete="email"
                     >
                 </div>
                 <button type="submit" class="btn btn-primary" id="submit-btn">
                     <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
-                    Send deletion request
+                    Enviar pedido de eliminação
                 </button>
             </form>
         </div>
 
         <div class="footer-links">
-            <a href="index.html">Back to home</a>
+            <a href="index-pt.html">Voltar ao início</a>
             <span aria-hidden="true"> · </span>
-            <a href="mailto:contact@triagepaw.com">Contact us</a>
+            <a href="mailto:contact@triagepaw.com">Contacte-nos</a>
             <span aria-hidden="true"> · </span>
-            <strong><a href="deletion.html" onclick="localStorage.setItem('lang-override','en')" style="color:var(--teal);">EN</a></strong>
+            <a href="deletion.html" onclick="localStorage.setItem('lang-override','en')" style="color:var(--teal);">EN</a>
             <span aria-hidden="true"> | </span>
-            <a href="deletion-pt.html" onclick="localStorage.setItem('lang-override','pt')" style="color:var(--teal);">PT</a>
+            <strong><a href="deletion-pt.html" onclick="localStorage.setItem('lang-override','pt')" style="color:var(--teal);">PT</a></strong>
         </div>
     </div>
 
@@ -223,13 +223,13 @@
                 var emailInput = document.getElementById('email');
                 var email = (emailInput.value || '').trim();
                 if (!email) {
-                    showMessage('Please enter your email address.', true);
+                    showMessage('Por favor introduza o seu endereço de e-mail.', true);
                     emailInput.focus();
                     return;
                 }
 
                 submitBtn.disabled = true;
-                submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i> Sending…';
+                submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i> A enviar…';
 
                 fetch(FUNCTION_URL, {
                     method: 'POST',
@@ -238,27 +238,27 @@
                 })
                     .then(function (res) {
                         return res.json().then(function (data) {
-                            if (!res.ok) throw new Error(data.message || data.error || 'Request failed');
+                            if (!res.ok) throw new Error(data.message || data.error || 'Pedido falhado');
                             return data;
                         });
                     })
                     .then(function (data) {
-                        showMessage('Request sent. We’ll process your deletion and confirm by email.', false);
+                        showMessage('Pedido enviado. Processaremos a sua eliminação e confirmaremos por e-mail.', false);
                         form.reset();
                     })
                     .catch(function (err) {
-                        showMessage(err.message || 'Something went wrong. Please try again or contact us.', true);
+                        showMessage(err.message || 'Algo correu mal. Por favor tente novamente ou contacte-nos.', true);
                     })
                     .finally(function () {
                         submitBtn.disabled = false;
-                        submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane" aria-hidden="true"></i> Send deletion request';
+                        submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane" aria-hidden="true"></i> Enviar pedido de eliminação';
                     });
             });
         })();
     </script>
 <script>
-  if (!localStorage.getItem('lang-override') && navigator.language.startsWith('pt')) {
-    window.location.replace('deletion-pt.html');
+  if (!localStorage.getItem('lang-override') && !navigator.language.startsWith('pt')) {
+    window.location.replace('deletion.html');
   }
 </script>
 </body>
